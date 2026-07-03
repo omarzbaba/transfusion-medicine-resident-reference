@@ -4383,7 +4383,7 @@ window.TMREF.txn = {
       "frequency": "Common",
       "definition": "Interaction of an allergen with preformed antibodies (sometimes passively infused atopic-donor antibodies); may present with mucocutaneous signs only. NHSN reports allergic reactions as ONE type graded by severity; minor (non-severe) allergic reactions need not be reported to NHSN.",
       "certainty": {
-        "definitive": "≥2 of the following during or within 4 h of cessation: conjunctival edema · edema of lips/tongue/uvula · periorbital erythema & edema · generalized flushing · hypotension · localized angioedema · maculopapular rash · pruritus (itching) · respiratory distress/bronchospasm · urticaria (hives).",
+        "definitive": "≥2 of the following during or within 4 h of cessation: [conjunctival edema · edema of lips/tongue/uvula · periorbital erythema & edema · generalized flushing · hypotension · localized angioedema · maculopapular rash · pruritus (itching) · respiratory distress/bronchospasm · urticaria (hives)].",
         "probable": "ANY 1 of the above signs occurring during or within 4 h of cessation.",
         "possible": "N/A"
       },
@@ -4556,7 +4556,7 @@ window.TMREF.txn = {
       "frequency": "Common (leading cause of transfusion-related death)",
       "definition": "Infusion volume that cannot be effectively processed by the recipient — due to rate/volume or underlying cardiac/pulmonary pathology — producing hydrostatic (cardiogenic) pulmonary edema.",
       "certainty": {
-        "definitive": "New onset or exacerbation of ≥3 of the following within 12 h of cessation, with at least 1 from A and B: A — acute/worsening respiratory distress (dyspnea, tachypnea, cyanosis, decreased O₂ saturation without another specific cause); B — radiographic or clinical evidence of acute/worsening pulmonary edema (crackles, orthopnea, cough, S3, pink frothy sputum); PLUS elevated BNP / NT-proBNP; cardiovascular changes not explained by underlying condition (elevated CVP, left-heart failure: tachycardia, hypertension, widened pulse pressure, JVD, enlarged cardiac silhouette, peripheral edema); and evidence of fluid overload.",
+        "definitive": "New onset or exacerbation of ≥3 of the following within 12 h of cessation, with at least 1 from A and B: [A — acute/worsening respiratory distress (dyspnea, tachypnea, cyanosis, decreased O₂ saturation without another specific cause) · B — radiographic or clinical evidence of acute/worsening pulmonary edema (crackles, orthopnea, cough, S3, pink frothy sputum) · elevated BNP / NT-proBNP · cardiovascular changes not explained by underlying condition (elevated CVP, left-heart failure: tachycardia, hypertension, widened pulse pressure, JVD, enlarged cardiac silhouette, peripheral edema) · evidence of fluid overload].",
         "probable": "N/A",
         "possible": "N/A"
       },
@@ -4594,7 +4594,7 @@ window.TMREF.txn = {
       "frequency": "Rare (a leading cause of transfusion-related death)",
       "definition": "Acute hypoxemia with a PaO₂/FiO₂ ratio ≤300 mmHg combined with chest x-ray bilateral infiltrates in the absence of left atrial hypertension (circulatory overload); onset abrupt, in association with transfusion. (2019 consensus also distinguishes type I vs II by ARDS risk factors.)",
       "certainty": {
-        "definitive": "NO evidence of acute lung injury (ALI) prior to transfusion AND ALI onset during or within 6 h of cessation AND hypoxemia by any of (PaO₂/FiO₂ ≤300 mmHg; SpO₂ <90% on room air; other clinical evidence) AND radiographic bilateral infiltrates AND no evidence of left atrial hypertension (circulatory overload).",
+        "definitive": "ALL of the following: [no evidence of acute lung injury (ALI) before transfusion · ALI onset during or within 6 h of cessation · hypoxemia by any of (PaO₂/FiO₂ ≤300 mmHg; SpO₂ <90% on room air; other clinical evidence) · bilateral radiographic infiltrates · no evidence of left atrial hypertension / circulatory overload].",
         "probable": "N/A",
         "possible": "N/A"
       },
@@ -4728,7 +4728,7 @@ window.TMREF.txn = {
       "frequency": "Uncommon",
       "definition": "A drop in blood pressure during or within 1 h of cessation, where hypotension is usually the sole manifestation (facial flushing, dyspnea, or abdominal cramps may occur). Strong association with ACE inhibitors (impaired bradykinin breakdown).",
       "certainty": {
-        "definitive": "All other reactions presenting with hypotension are excluded AND hypotension occurs during or within 1 h of cessation, with: adults ≥18 y — drop in systolic BP ≥30 mmHg AND systolic ≤80 mmHg; children 1–<18 y — >25% drop in systolic from baseline (e.g., 120 → <90 mmHg); neonates / <1 y or <12 kg — >25% drop in the recorded measure (e.g., mean BP).",
+        "definitive": "All other reactions presenting with hypotension are excluded AND hypotension occurs during or within 1 h of cessation, with: [Adults ≥18 y — drop in systolic BP ≥30 mmHg AND systolic ≤80 mmHg · Children 1–<18 y — >25% drop in systolic from baseline (e.g., 120 → <90 mmHg) · Neonates / <1 y or <12 kg — >25% drop in the recorded measure (e.g., mean BP)].",
         "probable": "N/A",
         "possible": "Hypotension occurs but does not meet the criteria above, and no more specific reaction applies."
       },

@@ -189,34 +189,55 @@
      ============================================================================ */
   function renderTxnCatalog(mount) {
     var data = REF.txn || {}, reactions = data.reactions || [];
+    var SEV_CLASS = [["Non-severe", "def"], ["Severe", "prob"], ["Life-threatening", "warnhi"], ["Death", "crit"]];
+    var IMP_CLASS = [["Definite", "def"], ["Probable", "prob"], ["Possible", "poss"], ["Doubtful", "neut"], ["Ruled out", "neut"], ["Not determined", "neut"]];
+    var state = { q: "", cat: "", acuity: "" };
+    var cats = [], acus = [];
+    reactions.forEach(function (x) { if (x.category && cats.indexOf(x.category) < 0) cats.push(x.category); if (x.acuity && acus.indexOf(x.acuity) < 0) acus.push(x.acuity); });
+
     var box = el("div", {});
-    var searchWrap = el("div", { class: "search" },
-      el("span", { class: "muted-note", text: "Search" }));
+    var searchWrap = el("div", { class: "search", style: "margin-bottom:8px" }, el("span", { class: "muted-note", text: "Search" }));
     var input = el("input", { type: "search", placeholder: "Search reactions — fever, TRALI, hemolytic, IgA…", "aria-label": "Search transfusion reactions" });
     searchWrap.appendChild(input);
     var list = el("div", { class: "txn-list" });
-    box.appendChild(searchWrap); box.appendChild(list);
+    box.appendChild(searchWrap); box.appendChild(chipRow("Category", cats, "cat")); box.appendChild(chipRow("Acuity", acus, "acuity")); box.appendChild(list);
     clear(mount); mount.appendChild(box);
 
-    function draw(q) {
+    function chipRow(label, values, key) {
+      var row = el("div", { class: "filter-chips", style: "margin:6px 0" }, el("span", { class: "muted-note", style: "margin-right:4px; align-self:center" }, label));
+      [{ v: "", l: "All" }].concat(values.map(function (v) { return { v: v, l: v }; })).forEach(function (c) {
+        var b = el("button", { class: "chip" + (c.v === state[key] ? " is-active" : ""), type: "button",
+          on: { click: function () { state[key] = c.v; row.querySelectorAll(".chip").forEach(function (x) { x.classList.remove("is-active"); }); b.classList.add("is-active"); draw(); } } }, c.l);
+        row.appendChild(b);
+      });
+      return row;
+    }
+
+    function draw() {
       clear(list);
-      q = (q || "").trim().toLowerCase();
+      var q = state.q;
       var rows = reactions.filter(function (x) {
+        if (state.cat && x.category !== state.cat) return false;
+        if (state.acuity && x.acuity !== state.acuity) return false;
         if (!q) return true;
         var hay = (x.name + " " + (x.category || "") + " " + (x.definition || "") + " " + (x.signs || []).join(" ")).toLowerCase();
         return hay.indexOf(q) !== -1;
       });
-      if (!rows.length) { list.appendChild(el("p", { class: "muted-note" }, "No reactions match “" + q + "”.")); return; }
+      list.appendChild(el("p", { class: "muted-note" }, rows.length + " reaction" + (rows.length === 1 ? "" : "s") + " — tap for the full case sheet (case definition · severity · imputability)"));
+      if (!rows.length) { list.appendChild(el("p", { class: "muted-note" }, "No reactions match.")); return; }
       rows.forEach(function (x) {
         var d = el("details", { class: "acc" });
-        var sum = el("summary", {}, el("strong", {}, x.name),
-          x.acuity ? el("span", { class: "tag tag--adv", style: "margin-left:8px" }, x.acuity) : null,
-          el("span", { class: "chev" }));
-        d.appendChild(sum);
+        d.appendChild(el("summary", {}, el("strong", {}, x.name),
+          x.category ? el("span", { class: "tag", style: "margin-left:8px" }, x.category) : null,
+          x.acuity ? el("span", { class: "tag tag--adv", style: "margin-left:6px" }, x.acuity) : null,
+          el("span", { class: "chev" })));
         var body = el("div", { class: "acc-body" });
         if (x.onset || x.frequency) body.appendChild(el("p", { class: "muted-note" },
           [x.onset ? "Onset: " + x.onset : "", x.frequency ? "Frequency: " + x.frequency : ""].filter(Boolean).join(" · ")));
         if (x.definition) body.appendChild(el("p", {}, x.definition));
+        if (x.imputability_notes) body.appendChild(el("p", { class: "muted-note", style: "font-style:italic" }, "Note: " + x.imputability_notes));
+        body.appendChild(rxSheet(x));
+        body.appendChild(el("h4", { style: "margin:14px 0 4px; font-size:13px" }, "Clinical detail & management"));
         kvBlock(body, "Signs / symptoms", x.signs);
         kvLine(body, "Mechanism", x.mechanism);
         kvLine(body, "Workup", x.workup);
@@ -226,14 +247,48 @@
         list.appendChild(d);
       });
     }
+
+    /* ---- NHSN 3-panel case sheet (matches the tmcoag-reference dashboard) ---- */
+    function classFor(map, label) { var s = String(label || "").toLowerCase(); for (var i = 0; i < map.length; i++) if (s.indexOf(map[i][0].toLowerCase()) !== -1) return map[i][1]; return "neut"; }
+    function stripLvl(s) { return String(s || "").replace(/^Grade\s*\d+\s*—\s*/, "").replace(/\s*\([^)]*\)\s*$/, "").trim(); }
+    function escRx(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+    function parseCrit(text) {
+      var wrap = el("div", { class: "rx-crit" });
+      if (!text || text === "N/A") { wrap.appendChild(el("span", { class: "rx-na" }, "N/A")); return wrap; }
+      String(text).split(/(\[[^\]]*\])/).forEach(function (part) {
+        if (!part) return;
+        if (part.charAt(0) === "[" && part.charAt(part.length - 1) === "]") {
+          var ul = el("ul", { class: "rx-bullets" });
+          part.slice(1, -1).split("·").map(function (s) { return s.trim(); }).filter(Boolean).forEach(function (it) { ul.appendChild(el("li", {}, it)); });
+          wrap.appendChild(ul);
+        } else {
+          wrap.appendChild(el("span", { html: escRx(part).replace(/(AND EITHER|ANY of|≥2 of|\bAND\b|\bOR\b|\bEITHER\b|\bEXCEPT\b|\bbut\b)/g, '<b class="rx-conn">$1</b>') }));
+        }
+      });
+      return wrap;
+    }
+    function level(label, val, cls, plain) { return el("div", { class: "rx-level " + cls }, el("span", { class: "rx-lvl-label" }, label + ":"), plain ? el("span", {}, val || "—") : parseCrit(val)); }
+    function optional() { return el("div", { class: "rx-optional" }, "Optional"); }
+    function panel(title, kids) { var b = el("div", { class: "rx-panel-body" }); kids.forEach(function (k) { if (k) b.appendChild(k); }); return el("div", { class: "rx-panel" }, el("div", { class: "rx-panel-head" }, title), b); }
+    function rxSheet(x) {
+      var cd = x.certainty || {};
+      var casePanel = panel("Case Definition", [level("Definitive", cd.definitive, "def"), level("Probable", cd.probable, "prob"), optional(), level("Possible", cd.possible, "poss")]);
+      var sevKids = (data.severity || []).map(function (g) { return level(stripLvl(g.grade), g.desc, classFor(SEV_CLASS, g.grade), true); });
+      sevKids.push(optional(), level("Not Determined", "The severity of the adverse reaction is unknown or not stated.", "neut", true));
+      var imp = data.imputability || [];
+      var impKids = imp.slice(0, 3).map(function (l) { return level(stripLvl(l.level), l.desc, classFor(IMP_CLASS, l.level), true); });
+      impKids.push(optional());
+      imp.slice(3).forEach(function (l) { impKids.push(level(stripLvl(l.level), l.desc, classFor(IMP_CLASS, l.level), true)); });
+      return el("div", { class: "rx-panels" }, casePanel, panel("Severity", sevKids), panel("Imputability", impKids));
+    }
     function kvLine(host, label, val) { if (val) host.appendChild(el("p", {}, el("strong", {}, label + ": "), Array.isArray(val) ? val.join("; ") : val)); }
     function kvBlock(host, label, arr) {
       if (!arr || !arr.length) return;
       host.appendChild(el("p", {}, el("strong", {}, label + ":")));
       var ul = el("ul", { class: "ref-list" }); arr.forEach(function (s) { ul.appendChild(el("li", {}, s)); }); host.appendChild(ul);
     }
-    input.addEventListener("input", debounce(function () { draw(input.value); }, 140));
-    draw("");
+    input.addEventListener("input", debounce(function () { state.q = input.value.trim().toLowerCase(); draw(); }, 140));
+    draw();
   }
 
   /* ============================================================================

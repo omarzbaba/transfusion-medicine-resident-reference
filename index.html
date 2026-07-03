@@ -327,6 +327,27 @@ table.cmp{ width:100%; border-collapse:collapse; font-size:.85rem; min-width:640
 .acc[open] .chev{ color:var(--accent) }
 .acc-body{ padding:0 4px 18px; font-size:.89rem; color:var(--muted); line-height:1.55 }
 .acc-body p + p{ margin-top:9px }
+/* ---- NHSN 3-panel case sheet (Case Definition · Severity · Imputability) ---- */
+.rx-panels{ display:grid; grid-template-columns:1fr; border:1px solid var(--hair,#e3e3e6); border-radius:10px; overflow:hidden; margin:12px 0; background:var(--surface) }
+@media (min-width:820px){ .rx-panels{ grid-template-columns:repeat(3,1fr) } }
+.rx-panel + .rx-panel{ border-top:1px solid var(--hair,#e3e3e6) }
+@media (min-width:820px){ .rx-panel + .rx-panel{ border-top:0; border-left:1px solid var(--hair,#e3e3e6) } }
+.rx-panel-head{ font-weight:700; font-size:.78rem; padding:8px 12px; background:var(--surface-2); color:var(--text); border-bottom:1px solid var(--hair,#e3e3e6); letter-spacing:.01em }
+.rx-panel-body{ padding:3px 12px 10px }
+.rx-level{ padding:8px 11px; margin:8px 0; border-left:3px solid var(--hair,#ccc); border-radius:0 8px 8px 0; font-size:.82rem; color:var(--text) }
+.rx-lvl-label{ font-weight:700; display:block; margin-bottom:4px }
+.rx-optional{ text-align:center; font-size:.62rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); background:var(--surface-2); border-top:1px solid var(--hair,#e3e3e6); border-bottom:1px solid var(--hair,#e3e3e6); padding:4px; margin:10px -12px }
+.rx-bullets{ columns:2; column-gap:22px; margin:6px 0; padding-left:18px }
+.rx-bullets li{ margin:3px 0; break-inside:avoid }
+@media (max-width:640px){ .rx-bullets{ columns:1 } }
+.rx-conn{ font-weight:700; color:var(--accent) }
+.rx-na{ color:var(--muted) }
+.rx-level.def{ background:color-mix(in srgb, var(--good) 12%, transparent); border-left-color:var(--good) } .rx-level.def .rx-lvl-label{ color:var(--good) }
+.rx-level.prob{ background:color-mix(in srgb, var(--warn) 15%, transparent); border-left-color:var(--warn) } .rx-level.prob .rx-lvl-label{ color:var(--warn) }
+.rx-level.poss{ background:color-mix(in srgb, var(--accent) 11%, transparent); border-left-color:var(--accent) } .rx-level.poss .rx-lvl-label{ color:var(--accent) }
+.rx-level.warnhi{ background:color-mix(in srgb, #c8721a 15%, transparent); border-left-color:#c8721a } .rx-level.warnhi .rx-lvl-label{ color:#c8721a }
+.rx-level.crit{ background:color-mix(in srgb, var(--bad) 13%, transparent); border-left-color:var(--bad) } .rx-level.crit .rx-lvl-label{ color:var(--bad) }
+.rx-level.neut{ background:color-mix(in srgb, var(--muted) 10%, transparent); border-left-color:var(--muted) } .rx-level.neut .rx-lvl-label{ color:var(--muted) }
 .acc .dot{ width:7px; height:7px; border-radius:50%; flex:0 0 auto }
 
 /* ============================================================
