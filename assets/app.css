@@ -707,3 +707,9 @@ textarea.ref-input{ resize:vertical; line-height:1.5 }
   .gd-actions{ justify-content:space-between } .gd-actions .btn{ flex:1 }
 }
 @media (prefers-reduced-motion: reduce){ .gd-backdrop, .gd-modal{ transition:none } }
+
+.byline{ font-size:.84rem; color:var(--muted); margin:14px 0 0 }
+.byline strong{ color:var(--text); font-weight:600 }
+.gd-credit{ margin-top:16px; padding-top:12px; border-top:1px solid var(--hair); font-size:.82rem; color:var(--muted) }
+.gd-credit strong{ color:var(--text); font-weight:600 }
+.gd-credit-line{ display:block; font-size:.75rem; color:var(--faint); margin-top:3px }

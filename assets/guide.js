@@ -50,7 +50,11 @@
         return [
           el("p", {}, "This is a working reference for the transfusion medicine and blood bank rotation — built by residents, for residents."),
           el("p", {}, "It has two halves. ", el("strong", {}, "Education"), " teaches the foundations. ", el("strong", {}, "Tools"), " is what you actually open when you're on call. Switch between them with the tabs at the top of the page."),
-          el("p", { class: "muted-note" }, "Takes about a minute to skim this guide. You can reopen it anytime from the ? button in the header.")
+          el("p", { class: "muted-note" }, "Takes about a minute to skim this guide. You can reopen it anytime from the ? button in the header."),
+          el("div", { class: "gd-credit" },
+            el("span", {}, "Created by "), el("strong", {}, "Omar Z. Baba, MD"),
+            el("span", {}, " · Supervised by "), el("strong", {}, "Rachel Brancamp, MD, MPA"),
+            el("span", { class: "gd-credit-line" }, "Department of Pathology & Laboratory Medicine · Henry Ford Health"))
         ];
       } },
     { kicker: "Step 1 of 3", title: "Education — learn the framework",
