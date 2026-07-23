@@ -474,7 +474,7 @@ table.cmp{ width:100%; border-collapse:collapse; font-size:.85rem; min-width:640
 .credit-role{ font-size:.64rem; text-transform:uppercase; letter-spacing:.12em; color:var(--faint); font-weight:600 }
 .credit strong{ font-size:.92rem; color:var(--text); font-weight:600; letter-spacing:-0.01em }
 .credit-line{ font-size:.8rem; color:var(--muted); line-height:1.4 }
-@media (max-width:640px){ .foot-credits{ grid-template-columns:1fr; gap:16px } }
+@media (max-width:640px){ .foot-credits{ gap:16px } }
 .to-top{ position:fixed; right:22px; bottom:22px; width:42px; height:42px; border-radius:11px; z-index:50;
   background:var(--surface); color:var(--text); border:1px solid var(--border-2); cursor:pointer; font-size:1.1rem;
   box-shadow:var(--shadow-lg); transition:transform var(--dur-fast), color var(--dur-fast) }
@@ -700,7 +700,16 @@ textarea.ref-input{ resize:vertical; line-height:1.5 }
 .gd-dot{ width:7px; height:7px; border-radius:50%; background:var(--border-2); transition:background .2s }
 .gd-dot.on{ background:var(--accent) }
 .gd-actions{ display:flex; gap:8px }
-.foot-copy{ font-size:.8rem; color:var(--muted); margin-top:6px }
+/* Footer legal notice — deliberately the highest-contrast text in the footer.
+   "Internal use only" and "no patient data" are the two lines that actually
+   constrain how this may be used, so they should not read as fine print. */
+/* Note the `.foot p` prefix on both rules below: `.foot p{color:var(--faint)}`
+   outranks a bare class, and --faint on --bg-soft is only ~3.5:1, which fails
+   WCAG AA. The legal notice and the copyright must not render as fine print. */
+.foot p.foot-notice{ font-size:.82rem; color:var(--muted); line-height:1.55; padding:12px 14px;
+  border:1px solid var(--hair); border-radius:10px; background:var(--bg-soft); margin-bottom:10px }
+.foot p.foot-notice strong{ color:var(--text); font-weight:600 }
+.foot p.foot-copy{ font-size:.8rem; color:var(--muted); margin-top:6px }
 @media (max-width:560px){
   .gd-modal{ max-height:92vh }
   .gd-foot{ flex-direction:column-reverse; align-items:stretch }

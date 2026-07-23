@@ -22,7 +22,8 @@ An onboarding + clinical decision-support dashboard for pathology residents on t
 
 - **Institutional content.** Embeds the HFHS MSBOS (policy `PCR-PALM-TRM-5.050`) and local approval logic. It is institutional clinical-reference material (not PHI). Verify against current policy before clinical use.
 - **No patient data.** Reference only — the composers build copy-ready note *skeletons* in-memory; nothing is stored or transmitted.
-- **Decision support, not protocol.** MSBOS is institution-specific; ASFA follows the 9th ed. (2023); antigen frequencies are population estimates (standardized on the White donor pool). The attending / blood bank physician is the final decision-maker.
+- **For internal use only.** Educational clinical decision support — not a substitute for clinical judgment; the treating physician / blood-bank medical director remains the final decision-maker. **No patient data.**
+- MSBOS is institution-specific; ASFA follows the 9th ed. (2023); antigen frequencies are population estimates (standardized on the White donor pool).
 
 ## File structure
 

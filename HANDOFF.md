@@ -94,7 +94,7 @@ Everything is editable right on GitHub:
 | `assets/reference/abo.data.js` | ABO donor prevalences (used for the donor-pool math). |
 | `assets/reference/engine.js`, `reference.js`, `reference2.js` | The tool logic/screens. Usually no need to touch these. |
 
-> ⚕️ **Clinical caution:** `refdata.js` and `abo.data.js` are the actual clinical knowledge (including the **HFHS MSBOS**, policy `PCR-PALM-TRM-5.050`). Review any change with the blood bank before residents rely on it. The dashboard is decision **support**, not a protocol — the attending / blood bank physician is always the final decision-maker.
+> ⚕️ **Clinical caution:** `refdata.js` and `abo.data.js` are the actual clinical knowledge (including the **HFHS MSBOS**, policy `PCR-PALM-TRM-5.050`). Review any change with the blood bank before residents rely on it. The dashboard is decision **support**, not a protocol — the treating physician / blood-bank medical director remains the final decision-maker. It is **for internal use only** and holds **no patient data**.
 
 ---
 

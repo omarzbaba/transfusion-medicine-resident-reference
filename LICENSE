@@ -22,16 +22,18 @@ written permission of the copyright holder.
 ------------------------------------------------------------------------------
 CLINICAL DISCLAIMER
 ------------------------------------------------------------------------------
-This is decision-support and educational material for trained residents and
-physicians. It is NOT a clinical protocol and does not replace institutional
-policy or clinical judgement.
+FOR INTERNAL USE ONLY. This is educational clinical decision support for
+trained residents and physicians. It is NOT a clinical protocol and is not a
+substitute for clinical judgment or institutional policy.
+
+NO PATIENT DATA. The dashboard stores and transmits nothing; do not enter PHI.
 
 The Maximum Surgical Blood Order Schedule is institution-specific (Henry Ford
 Health, policy PCR-PALM-TRM-5.050). ASFA categories follow the 9th Special
 Issue (2023). Antigen and ABO frequencies are population estimates. Verify all
 content against current institutional policy and the primary sources before
-acting on a patient. The attending / blood bank physician remains the final
-decision-maker.
+acting on a patient. The treating physician / blood-bank medical director
+remains the final decision-maker.
 
 The software is provided "as is", without warranty of any kind, express or
 implied. The authors accept no liability for any claim or damages arising from

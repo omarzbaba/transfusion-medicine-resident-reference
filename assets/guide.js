@@ -94,9 +94,11 @@
         return [
           el("p", {}, "This is ", el("strong", {}, "decision support, not a protocol."), " It's built for a trained resident or physician who is already reasoning about the case."),
           bullets([
+            "For internal use only — Henry Ford Pathology.",
             "The MSBOS is institution-specific; ASFA follows the 9th edition (2023); donor frequencies are population estimates.",
             "Verify against current institutional policy before acting on a patient.",
-            "The attending / blood bank physician is always the final decision-maker."
+            "The treating physician / blood-bank medical director remains the final decision-maker.",
+            "No patient data. Nothing you type is saved or transmitted — keep it that way and enter no PHI."
           ]),
           el("p", { class: "muted-note" }, "The footer shows when the clinical content was last reviewed. Reopen this guide anytime from the ? button.")
         ];
