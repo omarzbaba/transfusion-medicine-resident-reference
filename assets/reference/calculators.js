@@ -21,7 +21,7 @@
     { id: "plt",    label: "Platelet count < 30 ×10⁹/L",
       help: "Point if the platelet count is below 30." },
     { id: "hem",    label: "Evidence of hemolysis",
-      help: "Reticulocytes > 2.5%, OR undetectable haptoglobin, OR indirect bilirubin > 2.0 mg/dL." },
+      help: "Any one of: reticulocytes > 2.5%, OR undetectable haptoglobin, OR INDIRECT (unconjugated) bilirubin > 2.0 mg/dL — not total bilirubin, which would over-score." },
     { id: "nocx",   label: "No active cancer in the past year",
       help: "Point if the patient does NOT have active cancer." },
     { id: "notx",   label: "No history of solid-organ or stem-cell transplant",
@@ -35,13 +35,13 @@
   ];
   var PLASMIC_BANDS = [
     { max: 4, key: "low",  name: "Low risk (0–4)",
-      text: "Severe ADAMTS13 deficiency is unlikely. Actively pursue alternative causes of thrombotic microangiopathy (e.g., DIC, complement-mediated HUS/aHUS, malignancy, drug- or transplant-associated TMA, severe hypertension).",
+      text: "Severe ADAMTS13 deficiency is unlikely — it was present in only 0–4% of patients in this band across the derivation and validation cohorts. Actively pursue alternative causes of thrombotic microangiopathy (DIC, complement-mediated HUS/aHUS, malignancy-, drug- or transplant-associated TMA, severe hypertension).",
       action: "Plasma exchange is generally not indicated on this basis alone — but clinical judgement overrides the score." },
     { max: 5, key: "int",  name: "Intermediate risk (5)",
-      text: "Indeterminate probability of severe ADAMTS13 deficiency. The score does not settle the question in this range.",
-      action: "Send ADAMTS13 activity and consider empiric plasma exchange if clinical suspicion for TTP is meaningful — discuss with the apheresis/transfusion medicine physician now." },
+      text: "Indeterminate. Severe ADAMTS13 deficiency was present in 5–24% of patients scoring 5 across the cohorts — the score does not settle the question in this range.",
+      action: "Send ADAMTS13 activity (with inhibitor) and use clinical judgement; consider empiric plasma exchange if suspicion is meaningful or the patient is deteriorating. Discuss with the apheresis / transfusion medicine physician now." },
     { max: 7, key: "high", name: "High risk (6–7)",
-      text: "High probability of severe ADAMTS13 deficiency (TTP).",
+      text: "High probability of severe ADAMTS13 deficiency (TTP) — present in 62–82% of patients in this band across the cohorts.",
       action: "Send ADAMTS13 activity and inhibitor, and start urgent therapeutic plasma exchange — do not wait for the ADAMTS13 result. Add corticosteroids; hold platelet transfusion unless there is life-threatening bleeding." }
   ];
   var PLASMIC_NOTE = "PLASMIC score — Bendapudi PK et al., Lancet Haematology 2017. Validated in adults with suspected thrombotic microangiopathy; it estimates the probability of severe ADAMTS13 deficiency and does not replace ADAMTS13 testing or clinical judgement.";
@@ -58,6 +58,10 @@
     var right = el("div", { class: "ref-report surface", "aria-live": "polite" });
     grid.appendChild(left); grid.appendChild(right);
     clear(mount); mount.appendChild(grid);
+
+    left.appendChild(el("div", { class: "callout callout--dnc" },
+      el("span", { class: "tag tag--dnc" }, "Before you use this"),
+      el("p", {}, "Validated only in ADULTS (≥18) who already have an established thrombotic microangiopathy — thrombocytopenia plus schistocytes on the smear. It was not designed for children or pregnancy, and is unreliable where cancer, transplant, or sepsis dominate the picture. Thresholds are strict: a value sitting exactly on the cut-off does not score.")));
 
     var card = el("div", { class: "surface ref-card" }, el("h4", {}, "Seven variables — one click each"));
     PLASMIC_ITEMS.forEach(function (it) {
@@ -193,9 +197,10 @@
       }
       var tbvL = tbvLitres(st.sex, heightM, weightKg);
       var tbvMl = tbvL * 1000;
+      var perKg = tbvMl / weightKg;
       var out = el("div", { class: "calc-out" });
       out.appendChild(el("div", { class: "calc-cell hero" },
-        el("strong", {}, fmt(tbvMl) + " mL"), el("span", {}, "Total blood volume (" + tbvL.toFixed(2) + " L · " + (tbvMl / weightKg).toFixed(0) + " mL/kg)")));
+        el("strong", {}, fmt(tbvMl) + " mL"), el("span", {}, "Total blood volume (" + tbvL.toFixed(2) + " L · " + perKg.toFixed(0) + " mL/kg)")));
 
       var hctOk = hctRaw > 0 && hctRaw < 100;
       if (hctOk) {
@@ -207,6 +212,11 @@
         out.appendChild(el("div", { class: "calc-cell" }, el("strong", {}, fmt(tpv * 1.5) + " mL"), el("span", {}, "1.5 plasma-volume exchange · removes ~78%")));
       }
       right.appendChild(out);
+      if (perKg < 55 || perKg > 80) {
+        right.appendChild(el("div", { class: "callout callout--pitfall" },
+          el("span", { class: "tag tag--pitfall" }, "Check your units"),
+          el("p", {}, "That works out to " + perKg.toFixed(0) + " mL/kg, outside the usual adult range of roughly 55–80. The commonest cause is a unit slip — height or weight entered against the wrong toggle (cm vs in, kg vs lb). Verify before using this number.")));
+      }
 
       if (!hctOk) right.appendChild(el("p", { class: "muted-note", style: "margin-top:10px" }, "Add a hematocrit (1–99%) for plasma volume, red-cell volume, and TPE exchange volumes."));
       else {
@@ -220,8 +230,9 @@
 
     function volNote() {
       return "Total blood volume by Nadler's formula (Surgery, 1962), using height in metres and weight in kilograms. " +
-        "Plasma volume = blood volume × (1 − hematocrit). These are estimates for adults; they are not validated for children, " +
-        "pregnancy, or extremes of body habitus — correlate clinically.";
+        "Plasma volume = blood volume × (1 − hematocrit), using the venous hematocrit — the convention apheresis calculators use. " +
+        "Because whole-body hematocrit is ≈0.91 × venous, this slightly underestimates true plasma volume (roughly 4–6% at typical hematocrits). " +
+        "These are estimates for adults; they are not validated for children, pregnancy, or extremes of body habitus — correlate clinically.";
     }
     function volText() {
       var hRaw = parseFloat(st.h), wRaw = parseFloat(st.w), hctRaw = parseFloat(st.hct);

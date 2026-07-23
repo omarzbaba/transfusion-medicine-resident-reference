@@ -193,12 +193,16 @@ repository to you directly — then it is already in your account and you can sk
 </div>
 
 <h3>Where the content lives (in case you're curious)</h3>
+<p>The dashboard has <strong>two pages</strong>, switched by the <strong>Education | Tools</strong> tabs at the top:</p>
 <table class="filemap">
   <tr><th>File</th><th>What it holds</th></tr>
-  <tr><td>index.html</td><td>All the teaching content, wording, and quiz questions — the page itself.</td></tr>
-  <tr><td>assets/reference/refdata.js</td><td><strong>The clinical reference data</strong> — the MSBOS surgery list, ASFA table, platelet &amp; transfusion-reaction rules, reaction catalog.</td></tr>
+  <tr><td>index.html</td><td><strong>Education page</strong> — the three pillars, cases, quiz questions, glossary, and recap wording.</td></tr>
+  <tr><td>tools.html</td><td><strong>Tools page</strong> — the on-call calculators and reference tools (headings and intro text).</td></tr>
+  <tr><td>assets/reference/refdata.js</td><td><strong>The clinical reference data</strong> — MSBOS surgery list, ASFA table, platelet &amp; transfusion-reaction rules, reaction catalog.</td></tr>
   <tr><td>assets/reference/abo.data.js</td><td>ABO donor prevalences used by the blood-prep donor-pool math.</td></tr>
-  <tr><td>assets/reference/*.js (others)</td><td>The tool logic and screens — usually no need to touch these.</td></tr>
+  <tr><td>assets/reference/calculators.js</td><td>PLASMIC score criteria/bands and the blood &amp; plasma volume formulas.</td></tr>
+  <tr><td>assets/app.css</td><td>The look of <em>both</em> pages — colours, spacing, type. One place to restyle.</td></tr>
+  <tr><td>assets/shell.js · education.js · reference/*.js</td><td>Behaviour and screens — usually no need to touch these.</td></tr>
 </table>
 <p>You don't need to open these yourself — just tell Claude what you want and it will find the right place. But it helps to know the <span class="mono">refdata.js</span> and <span class="mono">abo.data.js</span> files are the <em>clinical knowledge.</em></p>
 
