@@ -665,3 +665,45 @@ textarea.ref-input{ resize:vertical; line-height:1.5 }
   .ref-report, .ref-note{ position:static }
   .bp-stats{ flex-wrap:wrap }
 }
+
+/* ============================================================
+   GUIDE / WHAT'S NEW MODAL
+   ============================================================ */
+.gd-backdrop{ position:fixed; inset:0; z-index:300; display:flex; align-items:center; justify-content:center; padding:20px;
+  background:rgba(8,10,14,.55); -webkit-backdrop-filter:blur(3px); backdrop-filter:blur(3px);
+  opacity:0; transition:opacity .22s var(--ease) }
+.gd-backdrop.in{ opacity:1 }
+.gd-modal{ width:100%; max-width:620px; max-height:88vh; display:flex; flex-direction:column;
+  background:var(--surface); border:1px solid var(--border); border-radius:16px; box-shadow:var(--shadow-lg);
+  overflow:hidden; transform:translateY(10px) scale(.99); transition:transform .22s var(--ease) }
+.gd-backdrop.in .gd-modal{ transform:none }
+.gd-head{ display:flex; align-items:center; justify-content:space-between; gap:12px; padding:16px 20px 0 }
+.gd-kicker{ font-size:.66rem; text-transform:uppercase; letter-spacing:.14em; color:var(--accent); font-weight:600 }
+.gd-close{ width:30px; height:30px; flex:0 0 auto; border-radius:8px; border:1px solid var(--border);
+  background:transparent; color:var(--muted); cursor:pointer; font-size:.85rem; line-height:1 }
+.gd-close:hover{ background:var(--surface-2); color:var(--text) }
+.gd-body{ padding:6px 22px 4px; overflow-y:auto }
+.gd-body h2{ font-size:1.32rem; letter-spacing:-0.025em; margin:6px 0 12px; line-height:1.2 }
+.gd-content{ font-size:.92rem; color:var(--muted); line-height:1.6 }
+.gd-content p{ margin:0 0 10px } .gd-content strong{ color:var(--text) }
+.gd-list{ list-style:none; padding:0; margin:8px 0 12px }
+.gd-list li{ padding:7px 0 7px 24px; position:relative; border-top:1px solid var(--hair); font-size:.88rem; line-height:1.5 }
+.gd-list li:first-child{ border-top:none }
+.gd-list li::before{ content:"\2192"; position:absolute; left:2px; top:7px; color:var(--accent) }
+.gd-group{ font-size:.64rem; text-transform:uppercase; letter-spacing:.12em; color:var(--faint); font-weight:600; margin:14px 0 0 }
+.gd-rel{ margin-bottom:16px }
+.gd-rel h3{ font-size:.98rem; margin:0 0 2px; color:var(--text) }
+.gd-rel .gd-when{ font-size:.72rem; color:var(--faint); font-family:var(--mono) }
+.gd-foot{ display:flex; align-items:center; justify-content:space-between; gap:12px;
+  padding:14px 22px 18px; border-top:1px solid var(--hair); margin-top:10px }
+.gd-dots{ display:flex; gap:6px }
+.gd-dot{ width:7px; height:7px; border-radius:50%; background:var(--border-2); transition:background .2s }
+.gd-dot.on{ background:var(--accent) }
+.gd-actions{ display:flex; gap:8px }
+.foot-copy{ font-size:.8rem; color:var(--muted); margin-top:6px }
+@media (max-width:560px){
+  .gd-modal{ max-height:92vh }
+  .gd-foot{ flex-direction:column-reverse; align-items:stretch }
+  .gd-actions{ justify-content:space-between } .gd-actions .btn{ flex:1 }
+}
+@media (prefers-reduced-motion: reduce){ .gd-backdrop, .gd-modal{ transition:none } }
