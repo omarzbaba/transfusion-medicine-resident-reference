@@ -12,3 +12,6 @@ Icon
 # OneDrive / sync cruft
 *.tmp
 ~$*
+
+# Duplicate raw data — the single source of truth is assets/reference/refdata.js
+assets/reference/data/
