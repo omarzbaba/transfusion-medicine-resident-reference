@@ -69,6 +69,4 @@ Clinical data lives in `assets/reference/refdata.js` (`window.TMREF` — `bloodp
 
 **Created by Omar Z. Baba, MD** — Clinical Pathologist · Pathology Informaticist · Clinical Pathology Resident, PGY-III · Department of Pathology & Laboratory Medicine, Henry Ford Health.
 
-**Supervised by Rachel Brancamp, MD, MPA** — Associate Director, Transfusion Medicine · Department of Pathology & Laboratory Medicine, Henry Ford Health.
-
 © 2026 Omar Z. Baba, MD. All rights reserved. Made available for educational and clinical-reference use within the Henry Ford Pathology Residency — see [`LICENSE`](LICENSE). Commercial use or redistribution requires prior written permission.

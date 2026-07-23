@@ -8,8 +8,17 @@
    everything released since. First-time visitors get the welcome guide instead.
    ============================================================================ */
 window.TMUPDATES = {
-  version: "1.2.0",
+  version: "1.3.0",
   releases: [
+    {
+      v: "1.3.0",
+      date: "July 2026",
+      title: "One place for the whole apheresis consult",
+      items: [
+        "Apheresis, ASFA and the two calculators are now a single section with tabs, in the order a consult actually runs: consult note → ASFA lookup → PLASMIC score → exchange dosing.",
+        "The separate Calculators group has gone from the left rail — fewer places to look."
+      ]
+    },
     {
       v: "1.2.0",
       date: "July 2026",

@@ -469,7 +469,7 @@ table.cmp{ width:100%; border-collapse:collapse; font-size:.85rem; min-width:640
 .foot{ max-width:var(--maxw); margin:0 auto; padding:32px clamp(18px,3vw,40px) 64px; border-top:1px solid var(--hair) }
 .foot p{ font-size:.82rem; color:var(--faint); margin-bottom:8px; line-height:1.5 }
 .foot p:first-child{ color:var(--muted) }
-.foot-credits{ display:grid; grid-template-columns:1fr 1fr; gap:24px; margin:14px 0 20px; padding-top:16px; border-top:1px solid var(--hair) }
+.foot-credits{ display:flex; flex-wrap:wrap; gap:28px; margin:14px 0 20px; padding-top:16px; border-top:1px solid var(--hair) }
 .credit{ display:flex; flex-direction:column; gap:3px }
 .credit-role{ font-size:.64rem; text-transform:uppercase; letter-spacing:.12em; color:var(--faint); font-weight:600 }
 .credit strong{ font-size:.92rem; color:var(--text); font-weight:600; letter-spacing:-0.01em }

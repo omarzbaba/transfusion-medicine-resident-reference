@@ -41,10 +41,7 @@
       <a class="nav-item" href="#bloodprep" data-nav="bloodprep"><span class="nav-ico nav-ico--blood">◆</span>Blood for the OR</a>
       <a class="nav-item" href="#antibody" data-nav="antibody"><span class="nav-ico nav-ico--blood">◆</span>Antibody panel ID</a>
       <p class="nav-group">Apheresis</p>
-      <a class="nav-item" href="#apheresis" data-nav="apheresis"><span class="nav-ico nav-ico--aph">◆</span>Apheresis &amp; ASFA</a>
-      <p class="nav-group">Calculators</p>
-      <a class="nav-item" href="#plasmic" data-nav="plasmic"><span class="nav-ico nav-ico--aph">◆</span>PLASMIC score (TTP)</a>
-      <a class="nav-item" href="#volumes" data-nav="volumes"><span class="nav-ico nav-ico--aph">◆</span>Blood &amp; plasma volume</a>
+      <a class="nav-item" href="#apheresis" data-nav="apheresis"><span class="nav-ico nav-ico--aph">◆</span>Apheresis, ASFA &amp; calculators</a>
     </nav>
 
     <div class="sidebar-foot">
@@ -88,7 +85,7 @@
         <span class="kicker">Henry Ford Pathology Residency · On-call reference</span>
         <h2 id="toolsintro-h">Clinical tools.</h2>
         <p class="section-sub">Decision support for the calls you actually take. Pick a tool from the left rail. Everything runs in your browser — nothing you type is saved or transmitted. For the teaching material (the three pillars, cases, quiz, and glossary), switch to <a href="index.html"><strong>Education</strong></a>.</p>
-        <p class="byline">Created by <strong>Omar Z. Baba, MD</strong> · Supervised by <strong>Rachel Brancamp, MD, MPA</strong></p>
+        <p class="byline">Created by <strong>Omar Z. Baba, MD</strong></p>
 
       </div>
       <div class="grid-3 reveal">
@@ -100,15 +97,15 @@
         </a>
         <a class="pillar-card" href="#apheresis">
           <span class="pillar-num">02</span>
-          <h3>Apheresis &amp; ASFA</h3>
-          <p>Search all 166 ASFA indications and build the consult or progress note with category, grade, and course auto-filled.</p>
+          <h3>Apheresis, ASFA &amp; calculators</h3>
+          <p>Build the consult note, search all 166 ASFA indications, score a suspected TTP with PLASMIC, and dose the exchange with blood / plasma volume — in one place.</p>
           <span class="pillar-go">Open →</span>
         </a>
-        <a class="pillar-card" href="#plasmic">
+        <a class="pillar-card" href="index.html">
           <span class="pillar-num">03</span>
-          <h3>Calculators</h3>
-          <p>PLASMIC score for suspected TTP, and blood / plasma volume with TPE exchange dosing.</p>
-          <span class="pillar-go">Open →</span>
+          <h3>Learning the framework</h3>
+          <p>New to the rotation? The Education page has the three pillars, interactive cases, a scored quiz, and a glossary.</p>
+          <span class="pillar-go">Go to Education →</span>
         </a>
       </div>
     </section>
@@ -154,31 +151,38 @@
     <section id="apheresis" class="section" data-section="Apheresis &amp; ASFA" aria-labelledby="apheresis-h">
       <div class="section-head reveal">
         <span class="kicker">Clinical tool · Decision support</span>
-        <h2 id="apheresis-h">Therapeutic apheresis &amp; ASFA indications</h2>
-        <p class="section-sub">Search the ASFA tables and the note builder auto-fills category, grade, procedure, and suggested course; finish the prescription and monitoring and copy a consult or progress note. The full indication table is below for lookup.</p>
+        <h2 id="apheresis-h">Apheresis, ASFA &amp; calculators</h2>
+        <p class="section-sub">Everything for an apheresis consult in one place, in the order you actually need it: build the consult note, look up the ASFA indication, score a suspected TTP, and dose the exchange.</p>
       </div>
-      <h3 class="mt24 reveal">Consult &amp; note builder</h3>
-      <div id="ref-apheresis" class="reveal"><p class="ref-fallback muted-note">Loading the tool…</p></div>
-      <h3 class="mt24 reveal">ASFA indications (9th ed., 2023) — all 166, searchable</h3>
-      <div id="ref-asfa" class="reveal"><p class="ref-fallback muted-note">Loading the tool…</p></div>
-    </section>
 
-    <section id="plasmic" class="section" data-section="PLASMIC score" aria-labelledby="plasmic-h">
-      <div class="section-head reveal">
-        <span class="kicker">Clinical tool · Calculator</span>
-        <h2 id="plasmic-h">PLASMIC score — predicting severe ADAMTS13 deficiency</h2>
-        <p class="section-sub">Seven bedside variables, one click each. Use it in a thrombotic microangiopathy to judge how urgently to start plasma exchange while ADAMTS13 is pending.</p>
-      </div>
-      <div id="calc-plasmic" class="reveal"><p class="ref-fallback muted-note">Loading the calculator…</p></div>
-    </section>
+      <div class="reveal">
+        <div class="tabs" role="tablist" aria-label="Apheresis tools">
+          <button class="tab is-active" role="tab" type="button" data-tab="aph-consult">Consult &amp; note</button>
+          <button class="tab" role="tab" type="button" data-tab="aph-asfa">ASFA indications</button>
+          <button class="tab" role="tab" type="button" data-tab="aph-plasmic">PLASMIC score</button>
+          <button class="tab" role="tab" type="button" data-tab="aph-vol">Blood &amp; plasma volume</button>
+        </div>
 
-    <section id="volumes" class="section" data-section="Blood &amp; plasma volume" aria-labelledby="volumes-h">
-      <div class="section-head reveal">
-        <span class="kicker">Clinical tool · Calculator</span>
-        <h2 id="volumes-h">Blood &amp; plasma volume</h2>
-        <p class="section-sub">Total blood volume, plasma volume, and red-cell volume from height, weight, sex, and hematocrit — plus the exchange volume for a 1.0 and 1.5 plasma-volume TPE.</p>
+        <div class="tabpane is-active" data-pane="aph-consult">
+          <p class="section-sub mb8">Search the ASFA tables and the builder auto-fills category, grade, procedure, and suggested course; finish the prescription and monitoring, then copy a consult or progress note.</p>
+          <div id="ref-apheresis"><p class="ref-fallback muted-note">Loading the tool…</p></div>
+        </div>
+
+        <div class="tabpane" data-pane="aph-asfa">
+          <p class="section-sub mb8">All 166 ASFA indications (9th ed., 2023) — searchable and filterable by category. Click any row for the prescription details.</p>
+          <div id="ref-asfa"><p class="ref-fallback muted-note">Loading the tool…</p></div>
+        </div>
+
+        <div class="tabpane" data-pane="aph-plasmic">
+          <p class="section-sub mb8">Seven bedside variables, one click each. Use it in a thrombotic microangiopathy to judge how urgently to start plasma exchange while ADAMTS13 is pending.</p>
+          <div id="calc-plasmic"><p class="ref-fallback muted-note">Loading the calculator…</p></div>
+        </div>
+
+        <div class="tabpane" data-pane="aph-vol">
+          <p class="section-sub mb8">Total blood volume, plasma volume, and red-cell volume from height, weight, sex, and hematocrit — plus the exchange volume for a 1.0 and 1.5 plasma-volume TPE.</p>
+          <div id="calc-volumes"><p class="ref-fallback muted-note">Loading the calculator…</p></div>
+        </div>
       </div>
-      <div id="calc-volumes" class="reveal"><p class="ref-fallback muted-note">Loading the calculator…</p></div>
     </section>
 
     <footer class="foot">
@@ -189,12 +193,6 @@
           <span class="credit-role">Created by</span>
           <strong>Omar Z. Baba, MD</strong>
           <span class="credit-line">Clinical Pathologist · Pathology Informaticist · Clinical Pathology Resident, PGY-III</span>
-          <span class="credit-line">Department of Pathology &amp; Laboratory Medicine · Henry Ford Health</span>
-        </div>
-        <div class="credit">
-          <span class="credit-role">Supervised by</span>
-          <strong>Rachel Brancamp, MD, MPA</strong>
-          <span class="credit-line">Associate Director, Transfusion Medicine</span>
           <span class="credit-line">Department of Pathology &amp; Laboratory Medicine · Henry Ford Health</span>
         </div>
       </div>

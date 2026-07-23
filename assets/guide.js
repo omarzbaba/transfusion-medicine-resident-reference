@@ -53,7 +53,6 @@
           el("p", { class: "muted-note" }, "Takes about a minute to skim this guide. You can reopen it anytime from the ? button in the header."),
           el("div", { class: "gd-credit" },
             el("span", {}, "Created by "), el("strong", {}, "Omar Z. Baba, MD"),
-            el("span", {}, " · Supervised by "), el("strong", {}, "Rachel Brancamp, MD, MPA"),
             el("span", { class: "gd-credit-line" }, "Department of Pathology & Laboratory Medicine · Henry Ford Health"))
         ];
       } },
@@ -80,10 +79,11 @@
             "Blood for the OR — the MSBOS, with antigen-negative and ABO donor-pool maths.",
             "Antibody panel ID — a structured workup plus how to read a panel."
           ]),
-          el("div", { class: "gd-group" }, "Apheresis"),
-          bullets(["Apheresis & ASFA — a consult note builder over all 166 ASFA indications."]),
-          el("div", { class: "gd-group" }, "Calculators"),
+          el("div", { class: "gd-group" }, "Apheresis, ASFA & calculators"),
+          el("p", { class: "muted-note" }, "One section, four tabs — the order an apheresis consult actually runs in:"),
           bullets([
+            "Consult & note — the builder, with ASFA category and course auto-filled.",
+            "ASFA indications — all 166, searchable.",
             "PLASMIC score — TTP probability, one click per criterion.",
             "Blood & plasma volume — with plasma-exchange dosing."
           ])
