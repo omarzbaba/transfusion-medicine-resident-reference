@@ -1,0 +1,160 @@
+{
+  "panel_id": "tm_workup",
+  "title": "Transfusion reaction / blood-bank workup",
+  "category": "transfusion_medicine",
+  "blurb": "Triage a suspected transfusion reaction and the immunohematology workup. Click the signs and lab results; the engine suggests the most likely reaction type, the workup, and a copy-ready note.",
+  "report_heading": "Transfusion reaction workup — assessment",
+  "disclaimer": "Decision-support output for a trained physician. For any suspected reaction: STOP the transfusion, keep the line open, verify the patient/unit clerical match, and send post-reaction samples. This tool does not replace the blood bank's investigation. The pathologist/medical director remains the final decision-maker.",
+  "context_questions": [
+    {"id": "onset", "label": "Onset relative to transfusion:", "type": "select",
+     "options": ["unknown", "during / within 4 h", "4–24 h", "1–28 days (delayed)", "unrelated"], "default": "unknown"},
+    {"id": "product", "label": "Component:", "type": "select",
+     "options": ["unknown", "RBC", "platelets", "plasma", "cryoprecipitate", "multiple"], "default": "unknown"},
+    {"id": "premedicated", "label": "Pre-medicated (antipyretic / antihistamine):", "type": "yesno", "default": "unknown"}
+  ],
+  "analytes": [
+    {"id": "fever", "name": "Fever (≥1°C rise)", "group": "Clinical signs", "default": "absent",
+     "states": [
+       {"value": "absent", "label": "Absent", "kind": "skip"},
+       {"value": "present", "label": "Present", "kind": "abnormal", "report": "Fever (≥1°C rise from baseline)."}
+     ]},
+    {"id": "chills_rigors", "name": "Chills / rigors", "group": "Clinical signs", "default": "absent",
+     "states": [
+       {"value": "absent", "label": "Absent", "kind": "skip"},
+       {"value": "present", "label": "Present", "kind": "abnormal", "report": "Chills / rigors."}
+     ]},
+    {"id": "hypotension", "name": "Hypotension", "group": "Clinical signs", "default": "absent",
+     "states": [
+       {"value": "absent", "label": "Absent", "kind": "skip"},
+       {"value": "present", "label": "Present", "kind": "abnormal", "report": "Hypotension."}
+     ]},
+    {"id": "hypertension", "name": "Hypertension", "group": "Clinical signs", "default": "absent",
+     "states": [
+       {"value": "absent", "label": "Absent", "kind": "skip"},
+       {"value": "present", "label": "Present", "kind": "abnormal", "report": "Hypertension."}
+     ]},
+    {"id": "dyspnea", "name": "Dyspnea / hypoxia", "group": "Clinical signs", "default": "absent",
+     "states": [
+       {"value": "absent", "label": "Absent", "kind": "skip"},
+       {"value": "present", "label": "Present", "kind": "abnormal", "report": "Dyspnea / hypoxia."}
+     ]},
+    {"id": "urticaria", "name": "Urticaria / pruritus", "group": "Clinical signs", "default": "absent",
+     "states": [
+       {"value": "absent", "label": "Absent", "kind": "skip"},
+       {"value": "present", "label": "Present", "kind": "abnormal", "report": "Urticaria / pruritus."}
+     ]},
+    {"id": "anaphylaxis", "name": "Angioedema / anaphylaxis", "group": "Clinical signs", "default": "absent",
+     "states": [
+       {"value": "absent", "label": "Absent", "kind": "skip"},
+       {"value": "present", "label": "Present", "kind": "abnormal", "report": "Angioedema / wheeze / stridor / anaphylaxis."}
+     ]},
+    {"id": "back_flank_pain", "name": "Back / flank / infusion-site pain", "group": "Clinical signs", "default": "absent",
+     "states": [
+       {"value": "absent", "label": "Absent", "kind": "skip"},
+       {"value": "present", "label": "Present", "kind": "abnormal", "report": "Back / flank / infusion-site pain."}
+     ]},
+    {"id": "hemoglobinuria", "name": "Hemoglobinuria (dark urine)", "group": "Clinical signs", "default": "absent",
+     "states": [
+       {"value": "absent", "label": "Absent", "kind": "skip"},
+       {"value": "present", "label": "Present", "kind": "abnormal", "report": "Hemoglobinuria (dark / red urine)."}
+     ]},
+    {"id": "oozing", "name": "Oozing / DIC at access sites", "group": "Clinical signs", "default": "absent",
+     "states": [
+       {"value": "absent", "label": "Absent", "kind": "skip"},
+       {"value": "present", "label": "Present", "kind": "abnormal", "report": "Oozing / bleeding from access sites (concern for DIC)."}
+     ]},
+
+    {"id": "clerical_check", "name": "Clerical / ABO identity check", "group": "Workup", "default": "not_done",
+     "states": [
+       {"value": "not_done", "label": "Not done", "kind": "skip"},
+       {"value": "ok", "label": "Concordant", "kind": "normal"},
+       {"value": "mismatch", "label": "Mismatch", "kind": "abnormal", "report": "Clerical / ABO identity check reveals a mismatch."}
+     ]},
+    {"id": "visual_hemolysis", "name": "Visual hemolysis (post-sample plasma)", "group": "Workup", "default": "not_done",
+     "states": [
+       {"value": "not_done", "label": "Not done", "kind": "skip"},
+       {"value": "absent", "label": "Absent", "kind": "normal"},
+       {"value": "present", "label": "Present", "kind": "abnormal", "report": "Visible hemolysis in the post-reaction plasma."}
+     ]},
+    {"id": "dat", "name": "Direct antiglobulin test (DAT)", "group": "Workup", "default": "not_done",
+     "states": [
+       {"value": "not_done", "label": "Not done", "kind": "skip"},
+       {"value": "negative", "label": "Negative", "kind": "normal"},
+       {"value": "positive", "label": "Positive", "kind": "abnormal", "report": "Direct antiglobulin test (DAT) is positive."}
+     ]},
+    {"id": "repeat_abo", "name": "Repeat ABO (pre & post)", "group": "Workup", "default": "not_done",
+     "states": [
+       {"value": "not_done", "label": "Not done", "kind": "skip"},
+       {"value": "concordant", "label": "Concordant", "kind": "normal"},
+       {"value": "discrepant", "label": "Discrepant", "kind": "abnormal", "report": "Repeat ABO typing is discrepant between pre- and post-reaction samples."}
+     ]},
+    {"id": "antibody_screen", "name": "Antibody screen", "group": "Workup", "default": "not_done",
+     "states": [
+       {"value": "not_done", "label": "Not done", "kind": "skip"},
+       {"value": "negative", "label": "Negative", "kind": "normal"},
+       {"value": "positive", "label": "Positive", "kind": "abnormal", "report": "Antibody screen is positive."}
+     ]},
+    {"id": "hemolysis_labs", "name": "LDH / haptoglobin / bilirubin", "group": "Workup", "default": "not_done",
+     "states": [
+       {"value": "not_done", "label": "Not done", "kind": "skip"},
+       {"value": "normal", "label": "Normal", "kind": "normal"},
+       {"value": "hemolytic", "label": "Hemolytic pattern", "kind": "abnormal", "report": "Laboratory hemolysis pattern (↑LDH, ↓haptoglobin, ↑indirect bilirubin)."}
+     ]}
+  ],
+  "rules": [
+    {"id": "ahtr_clerical", "severity": "bad",
+     "when": {"clerical_check": ["mismatch"]},
+     "impression": "A clerical / ABO mismatch must be managed as an ACUTE HEMOLYTIC TRANSFUSION REACTION until disproven — most fatal reactions are ABO-incompatible clerical errors.",
+     "recommendations": ["STOP transfusion; keep IV line open with saline", "Recheck all identifiers; quarantine the unit", "DAT, visual hemolysis, repeat ABO on pre/post samples", "Support BP and urine output; watch for DIC and AKI", "Notify the blood bank / transfusion service immediately"]},
+    {"id": "ahtr_clinical", "severity": "bad",
+     "when": {"onset": ["during / within 4 h"], "fever": ["present"], "back_flank_pain": ["present"], "hemoglobinuria": ["present"]},
+     "impression": "Fever, flank/back pain, and hemoglobinuria during transfusion are the classic triad of an acute hemolytic transfusion reaction (often ABO-incompatible, complement-mediated intravascular hemolysis).",
+     "recommendations": ["STOP transfusion; maintain IV access", "Clerical recheck, DAT, visual hemolysis, repeat ABO", "Aggressive IV fluids to protect renal function", "Monitor for DIC", "Notify blood bank"]},
+    {"id": "ahtr_lab", "severity": "bad",
+     "when": {"dat": ["positive"], "visual_hemolysis": ["present"]},
+     "impression": "A positive DAT with visible post-reaction hemolysis supports an acute hemolytic transfusion reaction.",
+     "recommendations": ["Repeat ABO/crossmatch", "Eluate + antibody identification", "Monitor renal function and coagulation"]},
+    {"id": "dhtr", "severity": "warn",
+     "when": {"onset": ["1–28 days (delayed)"], "dat": ["positive"], "hemolysis_labs": ["hemolytic"]},
+     "impression": "Delayed hemolytic transfusion reaction — an anamnestic alloantibody response (commonly Kidd [Jk], Rh, Duffy, or Kell) days after transfusion.",
+     "recommendations": ["DAT + eluate; repeat antibody screen / identification", "Phenotype/genotype as needed", "Trend Hgb, LDH, bilirubin, haptoglobin", "Update the antibody record + issue an antigen-negative card"]},
+    {"id": "fnhtr", "severity": "info",
+     "when": {"fever": ["present"], "dat": ["negative", "not_done"], "hemoglobinuria": ["absent"], "hypotension": ["absent"]},
+     "impression": "Isolated fever ± chills without hemolysis or hypotension suggests a febrile non-hemolytic transfusion reaction (a diagnosis of EXCLUSION — rule out hemolysis and sepsis first).",
+     "recommendations": ["Exclude hemolysis: clerical check, DAT, visual hemolysis", "Exclude bacterial contamination / sepsis", "Antipyretics; consider leukoreduction for future transfusions"]},
+    {"id": "allergic_mild", "severity": "info",
+     "when": {"urticaria": ["present"], "anaphylaxis": ["absent"], "dyspnea": ["absent"], "hypotension": ["absent"], "fever": ["absent"]},
+     "impression": "Isolated urticaria / pruritus is a mild allergic reaction.",
+     "recommendations": ["Pause transfusion; give an antihistamine", "If urticaria resolves and it is isolated, the same unit may be restarted slowly", "Consider pre-medication / washed components if recurrent"]},
+    {"id": "anaphylaxis", "severity": "bad",
+     "when": {"anaphylaxis": ["present"]},
+     "impression": "Angioedema, wheeze, stridor, or shock indicates an ANAPHYLACTIC reaction — consider IgA deficiency with anti-IgA, or haptoglobin deficiency.",
+     "recommendations": ["STOP transfusion; epinephrine; airway + hemodynamic support", "Send IgA level / anti-IgA antibodies", "Use washed (and IgA-deficient if indicated) components in future"]},
+    {"id": "taco", "severity": "warn",
+     "when": {"dyspnea": ["present"], "hypertension": ["present"]},
+     "impression": "Dyspnea with hypertension (± raised JVP/BNP) within hours suggests transfusion-associated circulatory overload (TACO) — hydrostatic pulmonary edema.",
+     "recommendations": ["Diuresis; sit the patient up; oxygen", "Slow / limit transfusion rate; split units", "BNP, chest imaging, echo if needed"]},
+    {"id": "trali", "severity": "bad",
+     "when": {"dyspnea": ["present"], "hypotension": ["present"], "fever": ["present"], "hypertension": ["absent"]},
+     "impression": "Hypoxemia with hypotension and fever within ~6 hours, with bilateral infiltrates and normal filling pressures, suggests transfusion-related acute lung injury (TRALI) — non-cardiogenic, often donor-antibody mediated.",
+     "recommendations": ["Respiratory support (often mechanical ventilation); fluids/pressors NOT diuretics", "Chest imaging; exclude TACO (BNP, echo)", "Notify blood bank — donor HLA / HNA antibody investigation"]},
+    {"id": "septic", "severity": "bad",
+     "when": {"fever": ["present"], "hypotension": ["present"], "chills_rigors": ["present"], "onset": ["during / within 4 h"]},
+     "impression": "High fever, rigors, and hypotension during transfusion (especially of platelets) raise concern for bacterial contamination / septic transfusion reaction.",
+     "recommendations": ["STOP transfusion; blood cultures from patient AND the unit", "Broad-spectrum antibiotics; hemodynamic support", "Gram stain / culture the component; notify blood bank"]},
+    {"id": "dat_pos_general", "severity": "info",
+     "when": {"dat": ["positive"], "onset": ["unrelated", "unknown"]},
+     "impression": "A positive DAT outside the acute transfusion setting warrants distinguishing autoimmune hemolysis (warm vs cold), a transfusion alloantibody, and drug-induced antibody.",
+     "recommendations": ["Eluate + antibody identification", "Determine IgG vs C3d pattern", "Thermal amplitude / cold agglutinin titer if cold pattern", "Medication review"]}
+  ],
+  "caveats": [
+    {"id": "cav_stop", "when": {"onset": ["during / within 4 h", "4–24 h"]},
+     "text": "First action for any acute reaction: STOP the transfusion, keep the line open with saline, verify the clerical match, and send post-reaction samples (EDTA + clot) with the unit and tubing to the blood bank."},
+    {"id": "cav_premed", "when": {"premedicated": ["yes"]},
+     "text": "Pre-medication (antipyretics / antihistamines) can mask early febrile or allergic signs."},
+    {"id": "cav_platelets", "when": {"product": ["platelets"]},
+     "text": "Platelets are stored at room temperature and carry the highest risk of bacterial contamination / septic reaction."},
+    {"id": "cav_taco_trali", "when": {"dyspnea": ["present"]},
+     "text": "Distinguish TACO (hydrostatic, hypertension, raised BNP, diuresis-responsive) from TRALI (non-cardiogenic, hypotension, normal BNP) — management is opposite."}
+  ]
+}

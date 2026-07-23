@@ -26,17 +26,27 @@ An onboarding + clinical decision-support dashboard for pathology residents on t
 
 ## File structure
 
+Two pages, switched by the **Education | Tools** tabs in the header:
+
 ```
 .
-├── index.html                     # shell, design system, foundations content, reference sections
-├── assets/reference/
-│   ├── refdata.js                 # bundled clinical knowledge (MSBOS, ASFA, panels, reactions) — edit to update
-│   ├── abo.data.js                # ABO donor prevalences (editable, race-stratified)
-│   ├── engine.js                  # ported logic: panel interpreter + MSBOS/Rh compute
-│   ├── reference.js               # UI: platelet, transfusion-reaction + catalog, ASFA
-│   └── reference2.js              # UI: MSBOS, antibody ID, therapeutic apheresis
-├── HANDOFF.md   ·   PLANNING.md   ·   README.md   ·   .gitignore
+├── index.html                     # EDUCATION page — pillars, cases, quiz, glossary, recap
+├── tools.html                     # TOOLS page — the clinical calculators / decision support
+├── assets/
+│   ├── app.css                    # shared design system (restyle both pages here)
+│   ├── shell.js                   # shared chrome: theme, nav, scroll-spy, reveal
+│   ├── education.js               # question bank, cases, glossary + their renderers
+│   └── reference/
+│       ├── refdata.js             # clinical knowledge (MSBOS, ASFA, panels, reactions) — edit to update
+│       ├── abo.data.js            # ABO donor prevalences (editable)
+│       ├── engine.js              # panel interpreter + MSBOS/Rh compute
+│       ├── reference.js           # UI: platelet, transfusion reactions + catalog, ASFA
+│       ├── reference2.js          # UI: MSBOS, antibody ID, apheresis note builder
+│       └── calculators.js         # UI: PLASMIC score, blood & plasma volume
+├── docs/  (setup & maintenance guide)   ·   HANDOFF.md   ·   PLANNING.md   ·   README.md
 ```
+
+Splitting the pages keeps the on-call tools fast (the education page no longer loads the ~200 KB clinical dataset, and vice-versa) and gives residents a bookmarkable `tools.html`.
 
 Everything is **vanilla JS + CSS** — no build step, no dependencies, no network calls. It runs equally as a hosted site or by opening `index.html` locally (double-click).
 

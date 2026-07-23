@@ -1,0 +1,68 @@
+{
+  "panel_id": "platelet_approval",
+  "title": "Platelet request — approval / appropriateness",
+  "category": "transfusion_medicine",
+  "blurb": "Click the platelet count band and the clinical setting; the engine checks it against standard transfusion thresholds and writes an approve / not-indicated note.",
+  "report_heading": "Platelet transfusion request — appropriateness assessment",
+  "disclaimer": "Decision-support output for a trained physician. Thresholds are general guidance (AABB / BSH) — institutional policy and the clinical picture govern. The pathologist remains the final decision-maker.",
+  "context_questions": [
+    {"id": "indication", "label": "Indication:", "type": "select",
+     "options": ["unknown", "prophylactic (stable)", "pre-procedure", "active bleeding", "massive transfusion / DIC"], "default": "unknown"},
+    {"id": "procedure_risk", "label": "If pre-procedure, risk tier:", "type": "select",
+     "options": ["n/a", "minor bedside (line / paracentesis)", "major surgery", "neuraxial anesthesia", "CNS / neurosurgery / posterior eye"], "default": "n/a"},
+    {"id": "sepsis_coagulopathy", "label": "Fever / sepsis / coagulopathy:", "type": "yesno", "default": "unknown"},
+    {"id": "immune_itp", "label": "Immune thrombocytopenia (ITP):", "type": "yesno", "default": "unknown"},
+    {"id": "on_antiplatelet", "label": "On antiplatelet agent:", "type": "yesno", "default": "unknown"}
+  ],
+  "analytes": [
+    {"id": "platelet_count", "name": "Platelet count", "group": "Result", "ref": "×10⁹/L", "default": "not_done",
+     "states": [
+       {"value": "not_done", "label": "—", "kind": "skip"},
+       {"value": "ge100", "label": "≥100", "kind": "normal"},
+       {"value": "50to100", "label": "50–100", "kind": "abnormal", "report": "Platelet count 50–100 ×10⁹/L."},
+       {"value": "20to50", "label": "20–50", "kind": "abnormal", "report": "Platelet count 20–50 ×10⁹/L."},
+       {"value": "10to20", "label": "10–20", "kind": "abnormal", "report": "Platelet count 10–20 ×10⁹/L."},
+       {"value": "lt10", "label": "<10", "kind": "abnormal", "report": "Platelet count <10 ×10⁹/L."}
+     ]}
+  ],
+  "rules": [
+    {"id": "prophylactic_indicated", "severity": "good",
+     "when": {"indication": ["prophylactic (stable)"], "platelet_count": ["lt10"]},
+     "impression": "APPROPRIATE — prophylactic platelet transfusion is indicated for a stable patient with platelets <10 ×10⁹/L.",
+     "recommendations": ["Transfuse 1 adult dose; reassess increment"]},
+    {"id": "prophylactic_risk20", "severity": "good",
+     "when": {"indication": ["prophylactic (stable)"], "platelet_count": ["10to20"], "sepsis_coagulopathy": ["yes"]},
+     "impression": "APPROPRIATE — with fever/sepsis/coagulopathy, prophylaxis up to <20 ×10⁹/L is reasonable.",
+     "recommendations": ["Transfuse 1 adult dose"]},
+    {"id": "prophylactic_not_indicated", "severity": "warn",
+     "when": {"indication": ["prophylactic (stable)"], "platelet_count": ["20to50", "50to100", "ge100"]},
+     "impression": "NOT ROUTINELY INDICATED — above the prophylactic threshold (≥10, or ≥20 with risk factors). Prophylactic transfusion is generally not warranted.",
+     "recommendations": ["Hold unless bleeding or a procedure is planned"]},
+    {"id": "preproc_minor", "severity": "info",
+     "when": {"procedure_risk": ["minor bedside (line / paracentesis)"], "platelet_count": ["lt10", "10to20"]},
+     "impression": "Pre-procedure (minor bedside): target ≥20 ×10⁹/L — transfusion indicated to reach ≥20.",
+     "recommendations": ["Transfuse to ≥20 ×10⁹/L"]},
+    {"id": "preproc_major", "severity": "info",
+     "when": {"procedure_risk": ["major surgery", "neuraxial anesthesia"], "platelet_count": ["lt10", "10to20", "20to50"]},
+     "impression": "Pre-procedure (major surgery / neuraxial): target ≥50 ×10⁹/L — transfusion indicated to reach ≥50.",
+     "recommendations": ["Transfuse to ≥50 ×10⁹/L; recheck before the procedure"]},
+    {"id": "preproc_cns", "severity": "warn",
+     "when": {"procedure_risk": ["CNS / neurosurgery / posterior eye"], "platelet_count": ["lt10", "10to20", "20to50", "50to100"]},
+     "impression": "Pre-procedure (CNS / neurosurgery / posterior eye): target ≥100 ×10⁹/L — transfusion indicated to reach ≥100.",
+     "recommendations": ["Transfuse to ≥100 ×10⁹/L"]},
+    {"id": "bleeding_50", "severity": "info",
+     "when": {"indication": ["active bleeding"], "platelet_count": ["lt10", "10to20", "20to50"]},
+     "impression": "Active bleeding (WHO ≥2): maintain platelets ≥50 ×10⁹/L (≥100 for CNS or ocular bleeding).",
+     "recommendations": ["Transfuse to ≥50 (≥100 if CNS/ocular)"]},
+    {"id": "mtp", "severity": "info",
+     "when": {"indication": ["massive transfusion / DIC"]},
+     "impression": "Massive transfusion / DIC: maintain platelets ≥50 ×10⁹/L (≥75–100 with CNS injury); transfuse per the MTP ratio.",
+     "recommendations": ["Follow the massive transfusion protocol; trend platelets/fibrinogen"]}
+  ],
+  "caveats": [
+    {"id": "cav_itp", "when": {"immune_itp": ["yes"]},
+     "text": "In immune thrombocytopenia, transfused platelets survive poorly — reserve transfusion for significant or life-threatening bleeding and treat the underlying cause (steroids/IVIG/TPO-RA)."},
+    {"id": "cav_antiplatelet", "when": {"on_antiplatelet": ["yes"]},
+     "text": "On antiplatelet agents the count may not reflect platelet function — for active bleeding or urgent surgery, transfusion may help despite a 'normal' count."}
+  ]
+}
